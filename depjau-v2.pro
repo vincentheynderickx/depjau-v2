@@ -14,7 +14,8 @@ SOURCES += \
     mainwindow.cpp \
     materiel.cpp \
     mesure.cpp \
-    pugixml.cpp
+    pugixml.cpp \
+    qcustomplot.cpp
 
 HEADERS += \
     calcul_debit.hpp \
@@ -22,7 +23,8 @@ HEADERS += \
     materiel.hpp \
     mesure.hpp \
     pugiconfig.hpp \
-    pugixml.hpp
+    pugixml.hpp \
+    qcustomplot.h
 
 FORMS += \
     mainwindow.ui
