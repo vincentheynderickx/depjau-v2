@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include "qcustomplot.h"
 #include "mesure.hpp"
 
 QT_BEGIN_NAMESPACE
@@ -45,6 +45,12 @@ private slots:
     void on_input_pbgauche_editingFinished();
 
     void on_input_pbdroit_editingFinished();
+
+    void setupPlot(QCustomPlot *customPlot);
+
+    void setupFond(QCustomPlot *customPlot);
+
+
 
 private:
     Ui::MainWindow *ui;
