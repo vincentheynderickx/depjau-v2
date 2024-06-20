@@ -282,21 +282,41 @@ void MainWindow::setupFond(QCustomPlot *customPlot) {
     customPlot->addGraph();
     customPlot->graph(0)->setData(x, y);
 
-    // Set line style to a solid line (default style)
-    customPlot->graph(0)->setLineStyle(QCPGraph::lsLine); // Line graph
+    QPen pen;
+    pen.setColor(Qt::black); // Set the color to black
+    pen.setWidth(2); // Set the line thickness
+    customPlot->graph(0)->setPen(pen); // Apply the pen to the line
+    customPlot->graph(0)->setLineStyle(QCPGraph::lsLine); // Set the line style
 
-    // Optionally, you can also set scatter style if you want markers on the line
-    // customPlot->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 5));
+    QCPScatterStyle scatterStyle(QCPScatterStyle::ssCircle, Qt::black, Qt::black, 8); // Set the scatter style with larger size
+    customPlot->graph(0)->setScatterStyle(scatterStyle); // Apply the scatter style
+
 
     // Set labels for the axes
-    customPlot->xAxis->setLabel("Distance");
-    customPlot->yAxis->setLabel("Profondeur");
+    customPlot->xAxis->setLabel("Distance (m)");
+    customPlot->yAxis->setLabel("Profondeur (m)");
 
     // Rescale axes to fit the data
     customPlot->rescaleAxes();
 
-    // Replot to update the view
+    // Get the current axis ranges
+    QCPRange xRange = customPlot->xAxis->range();
+    QCPRange yRange = customPlot->yAxis->range();
+
+    // Define a padding factor
+    double paddingFactor = 0.03;
+
+    // Calculate the padding amount for each axis
+    double xPadding = xRange.size() * paddingFactor;
+    double yPadding = yRange.size() * paddingFactor;
+
+    // Apply the padding to the axis ranges
+    customPlot->xAxis->setRange(xRange.lower - xPadding, xRange.upper + xPadding);
+    customPlot->yAxis->setRange(yRange.lower - yPadding, yRange.upper + yPadding);
+
+    // Replot to apply changes
     customPlot->replot();
+
 
     qDebug() << "setupFond has been called and graph has been updated.";
 }
