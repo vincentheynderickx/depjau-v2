@@ -73,3 +73,5 @@ CMakeLists.txt.user*
 *.exe
 
 \build
+mc_predefs.h
+moc_predefs.h
