@@ -40,6 +40,26 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_6">
        <item>
+        <widget class="QWidget" name="widget" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_13">
+          <item>
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="text">
+             <string>Ouvrir...</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string>Enregistrer..</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
         <widget class="QWidget" name="general_params" native="true">
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <property name="spacing">
