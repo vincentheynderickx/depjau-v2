@@ -49,7 +49,7 @@ double mesure::debit(){
 }
 
 
-
+/*
 void mesure::to_xml(Debimeter debi, const std::string& filename) {
     pugi::xml_document doc;
 
@@ -136,6 +136,6 @@ void mesure::to_xml(Debimeter debi, const std::string& filename) {
     // Sauvegarder le fichier XML
     doc.save_file(filename.c_str());
 }
-
+*/
 
 
