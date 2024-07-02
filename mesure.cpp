@@ -4,6 +4,7 @@
 #include "pugixml.hpp"
 #include <iostream>
 #include <string>
+#include "materiel.cpp"
 
 
 using namespace std;
@@ -123,9 +124,10 @@ void mesure::to_xml(Debimeter debi, const std::string& filename) {
         for (const auto& measure : vert.les_mesures_de_la_vertical) {
             pugi::xml_node point = points.append_child("object");
             point.append_attribute("name") = "points";
-
+            double vitesse;
+            vitesse = debi.calcul_vitesse(measure.nombre_tops) ; //calcul de la vitesse en ce point
             add_parameter(point, "height", std::to_string(measure.profondeur_mesure).c_str());
-            add_parameter(point, "speed", std::to_string(measure.cote).c_str());
+            add_parameter(point, "speed", std::to_string(vitesse).c_str());
             add_parameter(point, "topsNb", std::to_string(measure.nombre_tops).c_str());
         }
 
@@ -136,6 +138,103 @@ void mesure::to_xml(Debimeter debi, const std::string& filename) {
     // Sauvegarder le fichier XML
     doc.save_file(filename.c_str());
 }
+
+void mesure::from_xml(const std::string& filename, mesure& une_mesure, Debitmetre& debimetre) {
+    pugi::xml_document doc;
+    if (!doc.load_file(filename.c_str())) {
+        std::cerr << "Erreur de chargement du fichier XML" << std::endl;
+        return;
+    }
+
+    // Charger les attributs du débitmètre
+    pugi::xml_node propellerEquations = doc.child("study").child("processings").child("processing").child("object");
+
+    std::vector<double> pentes, ordonnees, intervalles;
+
+    for (pugi::xml_node param = propellerEquations.child("parameter"); param; param = param.next_sibling("parameter")) {
+        std::string name = param.attribute("name").value();
+        double value = param.attribute("value").as_double();
+
+        if (name == "a1" || name == "a2" || name == "a3") {
+            pentes.push_back(value);
+        } else if (name == "b1" || name == "b2" || name == "b3") {
+            ordonnees.push_back(value);
+        } else if (name == "ak1" || name == "ak2") {
+            intervalles.push_back(value);
+        }
+    }
+
+    // Initialiser le débitmètre
+    debimetre = Debitmetre("Helice_from_xml", intervalles.size(), intervalles, pentes, ordonnees);
+
+    // Charger les paramètres de la mesure
+    pugi::xml_node processing = doc.child("study").child("processings").child("processing");
+
+    for (pugi::xml_node param = processing.child("parameter"); param; param = param.next_sibling("parameter")) {
+        std::string name = param.attribute("name").value();
+        double value = param.attribute("value").as_double();
+
+        if (name == "bottomRatio") {
+            une_mesure.coeff_de_fond = value;
+        } else if (name == "leftRatio") {
+            une_mesure.coeff_de_bord = value;
+        } else if (name == "rightRatio") {
+            une_mesure.coeff_de_bord = value;
+        }
+    }
+
+    // Charger les verticales et leurs mesures
+    pugi::xml_node verticals_node = processing.child("liste");
+
+    for (pugi::xml_node vertical_node = verticals_node.child("object"); vertical_node; vertical_node = vertical_node.next_sibling("object")) {
+        double distance = 0;
+        double profondeur = 0;
+
+        for (pugi::xml_node param = vertical_node.child("parameter"); param; param = param.next_sibling("parameter")) {
+            std::string name = param.attribute("name").value();
+            double value = param.attribute("value").as_double();
+
+            if (name == "distance") {
+                distance = value;
+            } else if (name == "totalDepth") {
+                profondeur = value;
+            }
+        }
+
+        vertical vert(distance, profondeur);
+
+        pugi::xml_node points_node = vertical_node.child("liste");
+
+        for (pugi::xml_node point_node = points_node.child("object"); point_node; point_node = point_node.next_sibling("object")) {
+            double hauteur = 0;
+            double vitesse = 0;
+            int topsNb = 0;
+
+            for (pugi::xml_node param = point_node.child("parameter"); param; param = param.next_sibling("parameter")) {
+                std::string name = param.attribute("name").value();
+                double value = param.attribute("value").as_double();
+
+                if (name == "height") {
+                    hauteur = value;
+                } else if (name == "speed") {
+                    vitesse = value;
+                } else if (name == "topsNb") {
+                    topsNb = static_cast<int>(value);
+                }
+            }
+
+            une_mesure mesure;
+            mesure.profondeur_mesure = hauteur;
+            mesure.nombre_tops = topsNb;
+            mesure.temps = 30; // Placeholder value
+
+            vert.ajout_mesure(mesure);
+        }
+
+        une_mesure.ajout_mesure(vert);
+    }
+}
+
 
 
 
