@@ -1,303 +1,293 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
+// Inclusion des fichiers nécessaires
 #include "mesure.hpp"
 #include <stdio.h>
 #include <string>
 
+// Constructeur de la classe MainWindow
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
-  ui->setupUi(this);
-  this->current_vertical = 0;
-  vertical verticale_vide = vertical();
-  this->current_mesure.ajout_mesure(verticale_vide);
-  this->setupPlot(ui->customPlot);
-  this->setupFond(ui->customPlot);
+    ui->setupUi(this); // Initialisation de l'interface utilisateur
+    this->setWindowTitle("DEPJAU V2");
+    this->current_vertical = 0; // Initialisation de la verticale courante à zéro
+    vertical verticale_vide = vertical(); // Création d'une verticale vide
+    this->current_mesure.ajout_mesure(verticale_vide); // Ajout de la verticale vide à la mesure courante
+    this->makePlot(ui->customPlot); // Configuration du fond du graphique
 }
 
-MainWindow::~MainWindow() { delete ui; }
+// Destructeur de la classe MainWindow
+MainWindow::~MainWindow() {
+    delete ui; // Libération de l'interface utilisateur
+}
 
+// Slot pour le bouton "Ajouter verticale"
 void MainWindow::on_add_vert_clicked() {
-  vertical verticale_vide = vertical();
-  this->current_mesure.ajout_mesure(verticale_vide);
-  this->current_vertical =
-      this->current_mesure.ensemble_des_mesures_des_verticales.size() - 1;
-  this->update_display();
+    vertical verticale_vide = vertical(); // Création d'une verticale vide
+    this->current_mesure.ajout_mesure(verticale_vide); // Ajout de la verticale vide à la mesure courante
+    this->current_vertical = this->current_mesure.ensemble_des_mesures_des_verticales.size() - 1; // Mise à jour de la verticale courante
+    this->update_display(); // Mise à jour de l'affichage
 }
 
+// Slot pour le bouton "Verticale précédente"
 void MainWindow::on_prec_vert_clicked() {
-  if (this->current_vertical > 0) {
-    this->current_vertical--;
-  }
-  this->update_display();
-}
-
-void MainWindow::on_next_vert_clicked() {
-  if (this->current_vertical <
-      this->current_mesure.ensemble_des_mesures_des_verticales.size() - 1) {
-    this->current_vertical++;
-  }
-  this->update_display();
-}
-
-void MainWindow::on_add_mes_clicked() {
-  une_mesure mesure_vide;
-  this->current_mesure
-      .ensemble_des_mesures_des_verticales[this->current_vertical]
-      .ajout_mesure(mesure_vide);
-  ui->tableau_mesures->insertRow(ui->tableau_mesures->rowCount());
-  this->update_display();
-}
-
-void MainWindow::update_display() {
-  this->setupFond(ui->customPlot);
-  std::string s = "Verticale ";
-  s += std::to_string(this->current_vertical + 1);
-  s += "/";
-  s += std::to_string(
-      this->current_mesure.ensemble_des_mesures_des_verticales.size());
-  ui->label_vert_count->setText(s.c_str());
-
-  int n_rows = this->current_mesure
-                   .ensemble_des_mesures_des_verticales[this->current_vertical]
-                   .les_mesures_de_la_vertical.size();
-
-  ui->tableau_mesures->setRowCount(n_rows);
-
-  for (int i = 0; i < n_rows; i++) {
-    QTableWidgetItem *item = new QTableWidgetItem();
-    item->setText(
-        std::to_string(
-            this->current_mesure
-                .ensemble_des_mesures_des_verticales[this->current_vertical]
-                .les_mesures_de_la_vertical[i]
-                .profondeur_mesure)
-            .c_str());
-    ui->tableau_mesures->setItem(i, 0, item);
-    item = new QTableWidgetItem();
-    item->setText(
-        std::to_string(
-            this->current_mesure
-                .ensemble_des_mesures_des_verticales[this->current_vertical]
-                .les_mesures_de_la_vertical[i]
-                .nombre_tops)
-            .c_str());
-    ui->tableau_mesures->setItem(i, 1, item);
-  }
-
-  ui->input_dist->setText(
-      std::to_string(
-          this->current_mesure
-              .ensemble_des_mesures_des_verticales[this->current_vertical]
-              .distance)
-          .c_str());
-  ui->input_prof->setText(
-      std::to_string(
-          this->current_mesure
-              .ensemble_des_mesures_des_verticales[this->current_vertical]
-              .profondeur)
-          .c_str());
-
-  std::string s2 = "Débit total : ";
-  double x = this->current_mesure.debit();
-  fprintf(stderr, "debit : %d\n", x);
-  std::cout << x << std::endl;
-  s2 += std::to_string(x);
-  ui->debit->setText(s2.c_str());
-}
-
-void MainWindow::on_tableau_mesures_cellChanged(int row, int column) {
-  QString item = ui->tableau_mesures->item(row, column)->text();
-  QByteArray ba = item.toLocal8Bit();
-  const char *c_str = ba.data();
-  try {
-    if (column == 0) {
-      this->current_mesure
-          .ensemble_des_mesures_des_verticales[this->current_vertical]
-          .les_mesures_de_la_vertical[row]
-          .profondeur_mesure = stod(c_str);
-    } else if (column == 1) {
-      this->current_mesure
-          .ensemble_des_mesures_des_verticales[this->current_vertical]
-          .les_mesures_de_la_vertical[row]
-          .nombre_tops = stol(c_str);
+    if (this->current_vertical > 0) {
+        this->current_vertical--; // Décrémentation de l'indice de la verticale courante si possible
     }
-  } catch (...) {
-    ui->tableau_mesures->item(row, column)->setText("ERR");
-  }
+    this->update_display(); // Mise à jour de l'affichage
 }
 
+// Slot pour le bouton "Verticale suivante"
+void MainWindow::on_next_vert_clicked() {
+    if (this->current_vertical < this->current_mesure.ensemble_des_mesures_des_verticales.size() - 1) {
+        this->current_vertical++; // Incrémentation de l'indice de la verticale courante si possible
+    }
+    this->update_display(); // Mise à jour de l'affichage
+}
+
+// Slot pour le bouton "Ajouter mesure"
+void MainWindow::on_add_mes_clicked() {
+    une_mesure mesure_vide; // Création d'une mesure vide
+    this->current_mesure.ensemble_des_mesures_des_verticales[this->current_vertical].ajout_mesure(mesure_vide); // Ajout de la mesure vide à la verticale courante
+    ui->tableau_mesures->insertRow(ui->tableau_mesures->rowCount()); // Insertion d'une ligne dans le tableau des mesures
+    this->update_display(); // Mise à jour de l'affichage
+}
+
+// Fonction de mise à jour de l'affichage
+void MainWindow::update_display() {
+    this->makePlot(ui->customPlot); // Configuration du fond du graphique
+
+    // Construction de la chaîne de texte pour afficher le numéro de verticale courante
+    std::string s = "Verticale ";
+    s += std::to_string(this->current_vertical + 1);
+    s += "/";
+    s += std::to_string(this->current_mesure.ensemble_des_mesures_des_verticales.size());
+    ui->label_vert_count->setText(s.c_str()); // Mise à jour du texte du label
+
+    // Nombre de lignes dans le tableau de mesures
+    int n_rows = this->current_mesure.ensemble_des_mesures_des_verticales[this->current_vertical].les_mesures_de_la_vertical.size();
+    ui->tableau_mesures->setRowCount(n_rows); // Mise à jour du nombre de lignes du tableau
+
+    // Boucle pour remplir le tableau avec les mesures de la verticale courante
+    for (int i = 0; i < n_rows; i++) {
+        QTableWidgetItem *item = new QTableWidgetItem();
+        item->setText(std::to_string(this->current_mesure.ensemble_des_mesures_des_verticales[this->current_vertical].les_mesures_de_la_vertical[i].profondeur_mesure).c_str());
+        ui->tableau_mesures->setItem(i, 0, item);
+        item = new QTableWidgetItem();
+        item->setText(std::to_string(this->current_mesure.ensemble_des_mesures_des_verticales[this->current_vertical].les_mesures_de_la_vertical[i].nombre_tops).c_str());
+        ui->tableau_mesures->setItem(i, 1, item);
+    }
+
+    // Affichage des distances et profondeurs de la verticale courante dans les champs de texte
+    ui->input_dist->setText(std::to_string(this->current_mesure.ensemble_des_mesures_des_verticales[this->current_vertical].distance).c_str());
+    ui->input_prof->setText(std::to_string(this->current_mesure.ensemble_des_mesures_des_verticales[this->current_vertical].profondeur).c_str());
+
+    // Calcul du débit total et affichage
+    std::string s2 = "Débit total : ";
+    double x = this->current_mesure.debit();
+    fprintf(stderr, "debit : %d\n", x);
+    std::cout << x << std::endl;
+    s2 += std::to_string(x);
+    ui->debit->setText(s2.c_str());
+}
+
+// Slot appelé lorsque le contenu d'une cellule du tableau de mesures change
+void MainWindow::on_tableau_mesures_cellChanged(int row, int column) {
+    QString item = ui->tableau_mesures->item(row, column)->text();
+    QByteArray ba = item.toLocal8Bit();
+    const char *c_str = ba.data();
+    try {
+        if (column == 0) {
+            this->current_mesure.ensemble_des_mesures_des_verticales[this->current_vertical].les_mesures_de_la_vertical[row].profondeur_mesure = stod(c_str);
+        } else if (column == 1) {
+            this->current_mesure.ensemble_des_mesures_des_verticales[this->current_vertical].les_mesures_de_la_vertical[row].nombre_tops = stol(c_str);
+        }
+    } catch (...) {
+        ui->tableau_mesures->item(row, column)->setText("ERR");
+    }
+    this->makePlot(ui->customPlot); // Configuration du fond du graphique
+}
+
+// Slot appelé lorsque l'édition du champ de distance est terminée
 void MainWindow::on_input_dist_editingFinished() {
-  QString inpt = ui->input_dist->text();
-  QByteArray ba = inpt.toLocal8Bit();
-  const char *c_str = ba.data();
-  try {
-    this->current_mesure
-        .ensemble_des_mesures_des_verticales[this->current_vertical]
-        .distance = stol(c_str);
-  } catch (...) {
-    ui->input_dist->setText("ERR");
-  }
-  this->update_display();
+    QString inpt = ui->input_dist->text();
+    QByteArray ba = inpt.toLocal8Bit();
+    const char *c_str = ba.data();
+    try {
+        this->current_mesure.ensemble_des_mesures_des_verticales[this->current_vertical].distance = stol(c_str);
+    } catch (...) {
+        ui->input_dist->setText("ERR");
+    }
+    this->update_display(); // Mise à jour de l'affichage
 }
 
+// Slot appelé lorsque l'édition du champ de profondeur est terminée
 void MainWindow::on_input_prof_editingFinished() {
-  QString inpt = ui->input_prof->text();
-  QByteArray ba = inpt.toLocal8Bit();
-  const char *c_str = ba.data();
-  try {
-    this->current_mesure
-        .ensemble_des_mesures_des_verticales[this->current_vertical]
-        .profondeur = stod(c_str);
-  } catch (...) {
-    ui->input_prof->setText("ERR");
-  }
-  this->update_display();
+    QString inpt = ui->input_prof->text();
+    QByteArray ba = inpt.toLocal8Bit();
+    const char *c_str = ba.data();
+    try {
+        this->current_mesure.ensemble_des_mesures_des_verticales[this->current_vertical].profondeur = stod(c_str);
+    } catch (...) {
+        ui->input_prof->setText("ERR");
+    }
+    this->update_display(); // Mise à jour de l'affichage
 }
 
+// Slot appelé lorsque l'édition du champ de coefficient de fond est terminée
 void MainWindow::on_input_coeff_fond_editingFinished() {
-  QString inpt = ui->input_coeff_fond->text();
-  QByteArray ba = inpt.toLocal8Bit();
-  const char *c_str = ba.data();
-  try {
-    this->current_mesure.coeff_de_fond = stod(c_str);
-  } catch (...) {
-    ui->input_coeff_fond->setText("ERR");
-  }
+    QString inpt = ui->input_coeff_fond->text();
+    QByteArray ba = inpt.toLocal8Bit();
+    const char *c_str = ba.data();
+    try {
+        this->current_mesure.coeff_de_fond = stod(c_str);
+    } catch (...) {
+        ui->input_coeff_fond->setText("ERR");
+    }
 }
 
+// Slot appelé lorsque l'édition du champ de coefficient de bord est terminée
 void MainWindow::on_input_coeff_bord_editingFinished() {
-  QString inpt = ui->input_coeff_bord->text();
-  QByteArray ba = inpt.toLocal8Bit();
-  const char *c_str = ba.data();
-  try {
-    this->current_mesure.coeff_de_bord = stod(c_str);
-  } catch (...) {
-    ui->input_coeff_fond->setText("ERR");
-  }
-  this->update_display();
+    QString inpt = ui->input_coeff_bord->text();
+    QByteArray ba = inpt.toLocal8Bit();
+    const char *c_str = ba.data();
+    try {
+        this->current_mesure.coeff_de_bord = stod(c_str);
+    } catch (...) {
+        ui->input_coeff_fond->setText("ERR");
+    }
+    this->update_display(); // Mise à jour de l'affichage
 }
 
+// Slot appelé lorsque l'édition du champ de distance du bord gauche est terminée
 void MainWindow::on_input_dbgauche_editingFinished() {
-  QString inpt = ui->input_dbgauche->text();
-  QByteArray ba = inpt.toLocal8Bit();
-  const char *c_str = ba.data();
-  try {
-    this->current_mesure.distance_bord_gauche = stod(c_str);
-  } catch (...) {
-    ui->input_dbgauche->setText("ERR");
-  }
-  this->update_display();
+    QString inpt = ui->input_dbgauche->text();
+    QByteArray ba = inpt.toLocal8Bit();
+    const char *c_str = ba.data();
+    try {
+        this->current_mesure.distance_bord_gauche = stod(c_str);
+    } catch (...) {
+        ui->input_dbgauche->setText("ERR");
+    }
+    this->update_display(); // Mise à jour de l'affichage
 }
 
+// Slot appelé lorsque l'édition du champ de distance du bord droit est terminée
 void MainWindow::on_input_dbdroit_editingFinished() {
-  QString inpt = ui->input_dbdroit->text();
-  QByteArray ba = inpt.toLocal8Bit();
-  const char *c_str = ba.data();
-  try {
-    this->current_mesure.distance_bord_droit = stod(c_str);
-  } catch (...) {
-    ui->input_dbdroit->setText("ERR");
-  }
+    QString inpt = ui->input_dbdroit->text();
+    QByteArray ba = inpt.toLocal8Bit();
+    const char *c_str = ba.data();
+    try {
+        this->current_mesure.distance_bord_droit = stod(c_str);
+    } catch (...) {
+        // En cas d'erreur, aucune action spécifique n'est prise ici
+    }
 }
 
+// Slot appelé lorsque l'édition du champ de hauteur du bord gauche est terminée
 void MainWindow::on_input_pbgauche_editingFinished() {
-  QString inpt = ui->input_pbgauche->text();
-  QByteArray ba = inpt.toLocal8Bit();
-  const char *c_str = ba.data();
-  try {
-    this->current_mesure.hauteur_bord_gauche = stod(c_str);
-  } catch (...) {
-    ui->input_pbgauche->setText("ERR");
-  }
-  this->update_display();
+    QString inpt = ui->input_pbgauche->text();
+    QByteArray ba = inpt.toLocal8Bit();
+    const char *c_str = ba.data();
+    try {
+        this->current_mesure.hauteur_bord_gauche = stod(c_str);
+    } catch (...) {
+        ui->input_pbgauche->setText("ERR");
+    }
+    this->update_display(); // Mise à jour de l'affichage
 }
 
+// Slot appelé lorsque l'édition du champ de hauteur du bord droit est terminée
 void MainWindow::on_input_pbdroit_editingFinished() {
-  QString inpt = ui->input_pbdroit->text();
-  QByteArray ba = inpt.toLocal8Bit();
-  const char *c_str = ba.data();
-  try {
-    this->current_mesure.hauteur_bord_droit = stod(c_str);
-  } catch (...) {
-    ui->input_pbdroit->setText("ERR");
-  }
-  this->update_display();
+    QString inpt = ui->input_pbdroit->text();
+    QByteArray ba = inpt.toLocal8Bit();
+    const char *c_str = ba.data();
+    try {
+        this->current_mesure.hauteur_bord_droit = stod(c_str);
+    } catch (...) {
+        ui->input_pbdroit->setText("ERR");
+    }
+    this->update_display(); // Mise à jour de l'affichage
 }
 
-// void MainWindow::setupPlot(QCustomPlot *customPlot) {
-//   // generate some data:
-//   QVector<double> x(101), y(101); // initialize with entries 0..100
-//   for (int i = 0; i < 101; ++i) {
-//     x[i] = i / 50.0 - 1; // x goes from -1 to 1
-//     y[i] = x[i] * x[i];  // let's plot a quadratic function
-//   }
-//   // create graph and assign data to it:
-//   customPlot->addGraph();
-//   customPlot->graph(0)->setData(x, y);
-//
-//   // set scatter style
-//   customPlot->graph(0)->setLineStyle(QCPGraph::lsNone); // No line
-//   customPlot->graph(0)->setScatterStyle(QCPScatterStyle(
-//       QCPScatterStyle::ssCircle, 5)); // Circle scatter style with size 5
-//
-//   // give the axes some labels:
-//   customPlot->xAxis->setLabel("x");
-//   customPlot->yAxis->setLabel("y");
-//   // set axes ranges, so we see all data:
-//   customPlot->xAxis->setRange(-1, 1);
-//   customPlot->yAxis->setRange(0, 1);
-// }
+// Fonction de configuration du fond du graphique
+void MainWindow::makePlot(QCustomPlot *customPlot) {
+    // Effacement des graphiques existants
+    customPlot->clearGraphs();
 
-void MainWindow::setupPlot(QCustomPlot *customPlot) {
-    // when starting without any data in the plot, it is often useful to set the
-    // range of the plot manually. This way, the user can't scroll/zoom out to a
-    // range where the plot is empty.
-    customPlot->xAxis->setRange(0, 10);
-    customPlot->yAxis->setRange(0, 10);
-    customPlot->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-}
-
-void MainWindow::setupFond(QCustomPlot *customPlot) {
-    // Retrieve the number of vertical measurements
+    // Récupération du nombre de mesures verticales
     int numMesures = this->current_mesure.ensemble_des_mesures_des_verticales.size();
 
-    // Check if there are measurements
+    // Vérification s'il y a des mesures
     if (numMesures == 0) {
-        qDebug() << "No vertical measurements available.";
+        qDebug() << "Aucune mesure verticale disponible.";
         return;
     }
 
-    // Initialize vectors to store distances and depths
-    QVector<double> x(numMesures);
-    QVector<double> y(numMesures);
+    // Initialisation des vecteurs pour stocker les distances et les profondeurs du fond et des mesures
+    QVector<double> x_fond;
+    QVector<double> y_fond;
+    QVector<double> x_mesures;
+    QVector<double> y_mesures;
 
-    // Populate vectors with distances and depths from the measurements
+    // Remplissage des vecteurs avec les distances et les profondeurs des mesures
     for (int i = 0; i < numMesures; ++i) {
-        x[i] = this->current_mesure.ensemble_des_mesures_des_verticales[i].distance;
-        y[i] = -this->current_mesure.ensemble_des_mesures_des_verticales[i].profondeur;
+        // Récupération de la mesure verticale courante
+        vertical& vert = this->current_mesure.ensemble_des_mesures_des_verticales[i];
+
+        // Ajout des points du fond
+        x_fond.append(vert.distance);
+        y_fond.append(-vert.profondeur); // Négatif pour inverser l'axe y
+
+        // Ajout des points de mesure
+        for (size_t j = 0; j < vert.les_mesures_de_la_vertical.size(); ++j) {
+            x_mesures.append(vert.distance);
+            y_mesures.append(-vert.les_mesures_de_la_vertical[j].profondeur_mesure); // Négatif pour inverser l'axe y
+        }
     }
 
-    // Add a new graph to the custom plot
+    // Ajout d'un graphique pour les points de fond
     customPlot->addGraph();
-    customPlot->graph(0)->setData(x, y);
+    customPlot->graph(0)->setData(x_fond, y_fond);
+    customPlot->graph(0)->setLineStyle(QCPGraph::lsLine); // Connexion des points par des lignes
 
-    // Set line style to a solid line (default style)
-    customPlot->graph(0)->setLineStyle(QCPGraph::lsLine); // Line graph
+    // Définition du style de ligne pour le fond (graphique 0)
+    QPen penFond;
+    penFond.setColor(Qt::black); // Couleur noire
+    penFond.setWidth(2); // Largeur de ligne
+    customPlot->graph(0)->setPen(penFond); // Application du style
 
-    // Optionally, you can also set scatter style if you want markers on the line
-    // customPlot->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 5));
+    // Ajout d'un graphique pour les points de mesure
+    customPlot->addGraph();
+    customPlot->graph(1)->setData(x_mesures, y_mesures);
+    customPlot->graph(1)->setLineStyle(QCPGraph::lsNone); // Pas de ligne, uniquement des points
+    customPlot->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, Qt::black, Qt::black, 8)); // Style de point : cercle de taille 8
 
-    // Set labels for the axes
-    customPlot->xAxis->setLabel("Distance");
-    customPlot->yAxis->setLabel("Profondeur");
+    // Définition des étiquettes pour les axes
+    customPlot->xAxis->setLabel("Distance (m)");
+    customPlot->yAxis->setLabel("Profondeur (m)");
 
-    // Rescale axes to fit the data
+    // Recalibrage des axes pour ajuster les données
     customPlot->rescaleAxes();
 
-    // Replot to update the view
+    // Récupération des plages actuelles des axes
+    QCPRange xRange = customPlot->xAxis->range();
+    QCPRange yRange = customPlot->yAxis->range();
+
+    // Définition d'un facteur de marge
+    double paddingFactor = 0.03;
+
+    // Calcul de la quantité de marge pour chaque axe
+    double xPadding = xRange.size() * paddingFactor;
+    double yPadding = yRange.size() * paddingFactor;
+
+    // Application de la marge aux plages des axes
+    customPlot->xAxis->setRange(xRange.lower - xPadding, xRange.upper + xPadding);
+    customPlot->yAxis->setRange(yRange.lower - yPadding, yRange.upper + yPadding);
+
+    // Représentation pour appliquer les changements
     customPlot->replot();
 
-    qDebug() << "setupFond has been called and graph has been updated.";
+    qDebug() << "makePlot a été appelé et le graphique a été mis à jour.";
 }
-

@@ -46,9 +46,7 @@ private slots:
 
     void on_input_pbdroit_editingFinished();
 
-    void setupPlot(QCustomPlot *customPlot);
-
-    void setupFond(QCustomPlot *customPlot);
+    void makePlot(QCustomPlot *customPlot);
 
 
 
