@@ -62,7 +62,7 @@ public:
     
 
     void to_xml(Debitmetre debi, const std::string& filename);
-    void from_xml(const std::string& filename, mesure& une_mesure, Debitmetre& debimetre);
+    void from_xml(const std::string& filename);
 
     mesure(){this->coeff_de_bord = 0;
         this->coeff_de_fond = 0;

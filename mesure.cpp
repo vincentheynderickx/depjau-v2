@@ -143,7 +143,7 @@ void mesure::to_xml(Debitmetre debi, const std::string& filename) {
     doc.save_file(filename.c_str());
 }
 
-mesure mesure::from_xml(const std::string& filename) {
+void mesure::from_xml(const std::string& filename) {
     pugi::xml_document doc;
     if (!doc.load_file(filename.c_str())) {
         std::cerr << "Erreur de chargement du fichier XML" << std::endl;
@@ -171,7 +171,7 @@ mesure mesure::from_xml(const std::string& filename) {
     // Initialiser le débitmètre
     Debitmetre debi;
     debi = Debitmetre("Helice_from_xml", intervalles.size(), intervalles, pentes, ordonnees);
-    this->debitmetre=debi
+    this->debitmetre=debi;
 
     // Charger les paramètres de la mesure
     pugi::xml_node processing = doc.child("study").child("processings").child("processing");
@@ -181,11 +181,11 @@ mesure mesure::from_xml(const std::string& filename) {
         double value = param.attribute("value").as_double();
 
         if (name == "bottomRatio") {
-            une_mesure.coeff_de_fond = value;
+            this->coeff_de_fond = value;
         } else if (name == "leftRatio") {
-            une_mesure.coeff_de_bord = value;
+            this->coeff_de_bord = value;
         } else if (name == "rightRatio") {
-            une_mesure.coeff_de_bord = value;
+            this->coeff_de_bord = value;
         }
     }
 
