@@ -9,12 +9,11 @@
 using namespace std;
 
 class Debitmetre{
-    private:
+    public:
         int n_intervalles; // nombre de sections de droite qui définissent l'étalonnage
         vector<double> intervalles; // les n-1 valeurs délimitant les intervalles
         vector<double> pentes; // pente de chaque section de droite
         vector<double> ordonnees; // ordonnée à l'origine de chaque section de droite
-    public:
         string nom;
         Debitmetre();
         Debitmetre(string nom_fichier);

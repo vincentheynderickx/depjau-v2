@@ -7,6 +7,9 @@
 #include "materiel.cpp"
 
 
+#define __MESURE_H
+
+
 using namespace std;
 
 
@@ -71,12 +74,12 @@ void mesure::to_xml(Debitmetre debi, const std::string& filename) {
         parameter.append_attribute("value") = value;
     };
 
-    add_parameter(processing, "bottomRatio", std::to_string(mesure.coeff_de_fond));
+    add_parameter(processing, "bottomRatio", to_string(mesure.coeff_de_fond).c_str());
     add_parameter(processing, "bottomZero", "true");
     add_parameter(processing, "hardwareType", "Micromoulinet");
     add_parameter(processing, "lastVerticalDistance", "0.6");
     add_parameter(processing, "lastVerticalIndex", "9");
-    add_parameter(processing, "leftRatio", std::to_string(mesure.coeff_de_bord));
+    add_parameter(processing, "leftRatio", to_string(mesure.coeff_de_bord).c_str());
     add_parameter(processing, "measureTime", "30");
     add_parameter(processing, "method", "Multipoints");
     add_parameter(processing, "moduleName", "DEPJAU");
@@ -93,18 +96,18 @@ void mesure::to_xml(Debitmetre debi, const std::string& filename) {
     
     double ak1=debi.intervalles[0]; double ak2=debi.intervalles[0];
     double a1=debi.pentes[0]; double a2=debi.pentes[1]; double a3=debi.pentes[2];
-    double b1=debi.ordonnées[0]; double b2=debi.ordonnées[1]; double b3=debi.ordonnées[0];
+    double b1=debi.ordonnees[0]; double b2=debi.ordonnees[1]; double b3=debi.ordonnees[0];
 
-    add_propeller_parameter("a1", std::to_string(a1));
-    add_propeller_parameter("a2", std::to_string(a2));
-    add_propeller_parameter("a3", std::to_string(a3));
-    add_propeller_parameter("ak1", std::to_string(ak1));
-    add_propeller_parameter("ak2", std::to_string(ak2));
-    add_propeller_parameter("b1", std::to_string(b1));
-    add_propeller_parameter("b2", std::to_string(b2));
-    add_propeller_parameter("b3", std::to_string(b3));
+    add_propeller_parameter("a1", std::to_string(a1).c_str());
+    add_propeller_parameter("a2", std::to_string(a2).c_str());
+    add_propeller_parameter("a3", std::to_string(a3).c_str());
+    add_propeller_parameter("ak1", std::to_string(ak1).c_str());
+    add_propeller_parameter("ak2", std::to_string(ak2).c_str());
+    add_propeller_parameter("b1", std::to_string(b1).c_str());
+    add_propeller_parameter("b2", std::to_string(b2).c_str());
+    add_propeller_parameter("b3", std::to_string(b3).c_str());
 
-    add_parameter(processing, "rightRatio", std::to_string(mesure.coeff_de_bord));
+    add_parameter(processing, "rightRatio", std::to_string(mesure.coeff_de_bord).c_str());
     add_parameter(processing, "version", "1.00");
 
     // Ajouter la liste des verticales
