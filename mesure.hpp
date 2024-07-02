@@ -61,9 +61,8 @@ public:
     void ajout_mesure(vertical la_vertical) { ensemble_des_mesures_des_verticales.push_back(la_vertical); };
     
 
-    void mesure::to_xml(Debitmetre debi, const std::string& filename);
-    void mesure::from_xml(Debitmetre debi, const std::string& filename);
-
+    void to_xml(Debitmetre debi, const std::string& filename);
+    void from_xml(const std::string& filename, mesure& une_mesure, Debitmetre& debimetre);
 
     mesure(){this->coeff_de_bord = 0;
         this->coeff_de_fond = 0;

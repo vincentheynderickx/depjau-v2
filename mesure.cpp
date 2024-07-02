@@ -74,12 +74,12 @@ void mesure::to_xml(Debitmetre debi, const std::string& filename) {
         parameter.append_attribute("value") = value;
     };
 
-    add_parameter(processing, "bottomRatio", to_string(mesure.coeff_de_fond).c_str());
+    add_parameter(processing, "bottomRatio", to_string(this->coeff_de_fond).c_str());
     add_parameter(processing, "bottomZero", "true");
     add_parameter(processing, "hardwareType", "Micromoulinet");
     add_parameter(processing, "lastVerticalDistance", "0.6");
     add_parameter(processing, "lastVerticalIndex", "9");
-    add_parameter(processing, "leftRatio", to_string(mesure.coeff_de_bord).c_str());
+    add_parameter(processing, "leftRatio", to_string(this->coeff_de_bord).c_str());
     add_parameter(processing, "measureTime", "30");
     add_parameter(processing, "method", "Multipoints");
     add_parameter(processing, "moduleName", "DEPJAU");
@@ -107,7 +107,7 @@ void mesure::to_xml(Debitmetre debi, const std::string& filename) {
     add_propeller_parameter("b2", std::to_string(b2).c_str());
     add_propeller_parameter("b3", std::to_string(b3).c_str());
 
-    add_parameter(processing, "rightRatio", std::to_string(mesure.coeff_de_bord).c_str());
+    add_parameter(processing, "rightRatio", std::to_string(this->coeff_de_bord).c_str());
     add_parameter(processing, "version", "1.00");
 
     // Ajouter la liste des verticales
@@ -143,7 +143,7 @@ void mesure::to_xml(Debitmetre debi, const std::string& filename) {
     doc.save_file(filename.c_str());
 }
 
-void mesure::from_xml(const std::string& filename, mesure& une_mesure, Debitmetre& debimetre) {
+mesure mesure::from_xml(const std::string& filename) {
     pugi::xml_document doc;
     if (!doc.load_file(filename.c_str())) {
         std::cerr << "Erreur de chargement du fichier XML" << std::endl;
@@ -169,7 +169,9 @@ void mesure::from_xml(const std::string& filename, mesure& une_mesure, Debitmetr
     }
 
     // Initialiser le débitmètre
-    debimetre = Debitmetre("Helice_from_xml", intervalles.size(), intervalles, pentes, ordonnees);
+    Debitmetre debi;
+    debi = Debitmetre("Helice_from_xml", intervalles.size(), intervalles, pentes, ordonnees);
+    this->debitmetre=debi
 
     // Charger les paramètres de la mesure
     pugi::xml_node processing = doc.child("study").child("processings").child("processing");
@@ -227,15 +229,15 @@ void mesure::from_xml(const std::string& filename, mesure& une_mesure, Debitmetr
                 }
             }
 
-            une_mesure mesure;
-            mesure.profondeur_mesure = hauteur;
-            mesure.nombre_tops = topsNb;
-            mesure.temps = 30; // Placeholder value
+            class une_mesure la_mesure;
+            la_mesure.profondeur_mesure = hauteur;
+            la_mesure.nombre_tops = topsNb;
+            la_mesure.temps = 30; // Placeholder value
 
-            vert.ajout_mesure(mesure);
+            vert.ajout_mesure(la_mesure);
         }
 
-        une_mesure.ajout_mesure(vert);
+        this->ajout_mesure(vert);
     }
 }
 
