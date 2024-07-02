@@ -90,9 +90,10 @@ void mesure::to_xml(Debitmetre debi, const std::string& filename) {
         parameter.append_attribute("name") = name;
         parameter.append_attribute("value") = value;
     };
-    ak1=debi.intervalles[0];ak2=debi.intervalles[0];
-    a1=debi.pentes[0];a2=debi.pentes[1];a3=debi.pentes[2];
-    b1=debi.ordonnées[0];b2=debi.ordonnées[1];b3=debi.ordonnées[0];
+    
+    double ak1=debi.intervalles[0]; double ak2=debi.intervalles[0];
+    double a1=debi.pentes[0]; double a2=debi.pentes[1]; double a3=debi.pentes[2];
+    double b1=debi.ordonnées[0]; double b2=debi.ordonnées[1]; double b3=debi.ordonnées[0];
 
     add_propeller_parameter("a1", std::to_string(a1));
     add_propeller_parameter("a2", std::to_string(a2));
