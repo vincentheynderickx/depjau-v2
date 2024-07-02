@@ -4,7 +4,6 @@
 #include "pugixml.hpp"
 #include <iostream>
 #include <string>
-#include "materiel.cpp"
 
 
 #define __MESURE_H
