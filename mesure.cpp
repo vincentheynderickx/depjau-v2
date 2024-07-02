@@ -51,7 +51,7 @@ double mesure::debit(){
 
 
 
-void mesure::to_xml(Debimeter debi, const std::string& filename) {
+void mesure::to_xml(Debimetre debi, const std::string& filename) {
     pugi::xml_document doc;
 
     // Créer l'élément racine
