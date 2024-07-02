@@ -10,6 +10,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this); // Initialisation de l'interface utilisateur
+    this->setWindowTitle("DEPJAU V2");
     this->current_vertical = 0; // Initialisation de la verticale courante à zéro
     vertical verticale_vide = vertical(); // Création d'une verticale vide
     this->current_mesure.ajout_mesure(verticale_vide); // Ajout de la verticale vide à la mesure courante
