@@ -68,7 +68,11 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="input_dbgauche"/>
+              <widget class="QLineEdit" name="input_dbgauche">
+               <property name="text">
+                <string>0</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -90,7 +94,11 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="input_dbdroit"/>
+              <widget class="QLineEdit" name="input_dbdroit">
+               <property name="text">
+                <string>0</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -112,7 +120,11 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="input_pbgauche"/>
+              <widget class="QLineEdit" name="input_pbgauche">
+               <property name="text">
+                <string>0</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -134,7 +146,11 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="input_pbdroit"/>
+              <widget class="QLineEdit" name="input_pbdroit">
+               <property name="text">
+                <string>0</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -156,7 +172,11 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="input_coeff_bord"/>
+              <widget class="QLineEdit" name="input_coeff_bord">
+               <property name="text">
+                <string>0</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -178,7 +198,38 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="input_coeff_fond"/>
+              <widget class="QLineEdit" name="input_coeff_fond">
+               <property name="text">
+                <string>0</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="configHelice">
+            <property name="text">
+             <string>Configuration hélice</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="temps_acquisition" native="true">
+            <layout class="QHBoxLayout" name="horizontalLayout_10">
+             <item>
+              <widget class="QLabel" name="label_7">
+               <property name="text">
+                <string>Temps d'acquisition (s)</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="input_temps_acq">
+               <property name="text">
+                <string>30</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
