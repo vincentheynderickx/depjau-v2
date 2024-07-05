@@ -50,6 +50,10 @@ private slots:
 
 
 
+    void on_configHelice_clicked();
+
+    void on_input_temps_acq_editingFinished();
+
 private:
     Ui::MainWindow *ui;
     mesure current_mesure;

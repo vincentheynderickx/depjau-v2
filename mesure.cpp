@@ -28,7 +28,7 @@ double mesure::debit(){
         for (int j=0; j < vert.les_mesures_de_la_vertical.size(); j++){
             mes = vert.les_mesures_de_la_vertical[j];
             hauteurs.push_back(mes.profondeur_mesure);
-            double v = this->debitmetre.calcul_vitesse(mes.nombre_tops / mes.temps);
+            double v = this->debitmetre.calcul_vitesse(mes.nombre_tops / this->temps_acquisition);
             vitesses.push_back(v);
         }
         debits_lin.push_back(debit_lineique(vitesses, hauteurs, vert.profondeur, this->coeff_de_fond));

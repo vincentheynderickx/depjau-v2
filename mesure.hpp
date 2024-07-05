@@ -15,16 +15,10 @@ public:
     double cote;
     double profondeur_mesure;
     int nombre_tops;
-    double temps;
 
     une_mesure(){this->profondeur_mesure = 0;
-        this->nombre_tops = 0;
-        this->temps = 30;};
+        this->nombre_tops = 0;};
 
-    une_mesure(double heure_en_minute, double cote_en_cm,
-               double profondeur_mesure_en_cm , int nombre_de_tops, double temps_dizieme_de_secondes) :   heure(heure_en_minute), cote(cote_en_cm),
-                                                                                                            profondeur_mesure(profondeur_mesure_en_cm),
-                                                                                                            nombre_tops(nombre_de_tops), temps(temps_dizieme_de_secondes) {}
 };
 
 class vertical
@@ -55,6 +49,9 @@ public:
     std::string commentaires;
 
     Debitmetre debitmetre;
+
+    double temps_acquisition;
+
     mesure(double temp_eau, double temp_air, double conductivite_mesure, double temp_conductivite, double coeff_de_bord, double coeff_de_fond) : temperature_eau(temp_eau), temperature_air(temp_air),
                                                                                                                                 conductivite(conductivite_mesure), temp_mesure_conductivite(temp_conductivite), coeff_de_bord(coeff_de_bord), coeff_de_fond(coeff_de_fond) {}
     std::vector<vertical> ensemble_des_mesures_des_verticales;
@@ -68,7 +65,8 @@ public:
         this->distance_bord_droit = 0;
         this->distance_bord_gauche = 0;
         this->hauteur_bord_droit = 0;
-        this->hauteur_bord_gauche = 0;};
+        this->hauteur_bord_gauche = 0;
+        this->temps_acquisition = 30;};
 
     double debit();
 };
