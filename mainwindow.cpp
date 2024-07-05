@@ -230,6 +230,11 @@ void MainWindow::makePlot(QCustomPlot *customPlot) {
     QVector<double> y_fond;
     QVector<double> x_mesures;
     QVector<double> y_mesures;
+    QVector<double> x_selected_mesures;
+    QVector<double> y_selected_mesures;
+
+    // Indice de la verticale sélectionnée
+    int selected_vertical_index = this->current_vertical;  // Assurez-vous que cet attribut est défini dans votre classe
 
     // Remplissage des vecteurs avec les distances et les profondeurs des mesures
     for (int i = 0; i < numMesures; ++i) {
@@ -242,8 +247,13 @@ void MainWindow::makePlot(QCustomPlot *customPlot) {
 
         // Ajout des points de mesure
         for (size_t j = 0; j < vert.les_mesures_de_la_vertical.size(); ++j) {
-            x_mesures.append(vert.distance);
-            y_mesures.append(-vert.les_mesures_de_la_vertical[j].profondeur_mesure); // Négatif pour inverser l'axe y
+            if (i == selected_vertical_index) {
+                x_selected_mesures.append(vert.distance);
+                y_selected_mesures.append(-vert.les_mesures_de_la_vertical[j].profondeur_mesure); // Négatif pour inverser l'axe y
+            } else {
+                x_mesures.append(vert.distance);
+                y_mesures.append(-vert.les_mesures_de_la_vertical[j].profondeur_mesure); // Négatif pour inverser l'axe y
+            }
         }
     }
 
@@ -258,11 +268,17 @@ void MainWindow::makePlot(QCustomPlot *customPlot) {
     penFond.setWidth(2); // Largeur de ligne
     customPlot->graph(0)->setPen(penFond); // Application du style
 
-    // Ajout d'un graphique pour les points de mesure
+    // Ajout d'un graphique pour les points de mesure non sélectionnés
     customPlot->addGraph();
     customPlot->graph(1)->setData(x_mesures, y_mesures);
     customPlot->graph(1)->setLineStyle(QCPGraph::lsNone); // Pas de ligne, uniquement des points
-    customPlot->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, Qt::black, Qt::black, 8)); // Style de point : cercle de taille 8
+    customPlot->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, Qt::blue, Qt::blue, 8)); // Style de point : cercle de taille 8
+
+    // Ajout d'un graphique pour les points de mesure sélectionnés
+    customPlot->addGraph();
+    customPlot->graph(2)->setData(x_selected_mesures, y_selected_mesures);
+    customPlot->graph(2)->setLineStyle(QCPGraph::lsNone); // Pas de ligne, uniquement des points
+    customPlot->graph(2)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QColor(255, 165, 0), QColor(255, 165, 0), 8)); // Orange (RGB)
 
     // Définition des étiquettes pour les axes
     customPlot->xAxis->setLabel("Distance (m)");
@@ -291,3 +307,4 @@ void MainWindow::makePlot(QCustomPlot *customPlot) {
 
     qDebug() << "makePlot a été appelé et le graphique a été mis à jour.";
 }
+
