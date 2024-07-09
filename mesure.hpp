@@ -47,7 +47,8 @@ public:
     double temperature_air;
     double conductivite;
     double temp_mesure_conductivite;
-    double coeff_de_bord;
+    double coeff_de_bord_droit;
+    double coeff_de_bord_gauche;
     double coeff_de_fond;
     double distance_bord_gauche;
     double distance_bord_droit;
@@ -69,7 +70,8 @@ public:
 
     void from_xml(const std::string& filename);
 
-    mesure(){this->coeff_de_bord = 0;
+    mesure(){this->coeff_de_bord_droit = 0;
+        this->coeff_de_bord_gauche = 0;
         this->coeff_de_fond = 0;
         this->distance_bord_droit = 0;
         this->distance_bord_gauche = 0;
