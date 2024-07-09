@@ -57,7 +57,8 @@ void mesure::to_xml(const Debitmetre& debi, const std::string& filename) const {
     add_parameter(processing, "hardwareType", "Micromoulinet");
     add_parameter(processing, "lastVerticalDistance", "0.6");
     add_parameter(processing, "lastVerticalIndex", "9");
-    add_parameter(processing, "leftRatio", to_string(coeff_de_bord).c_str());
+    add_parameter(processing, "leftRatio", to_string(coeff_de_bord_gauche).c_str());
+    add_parameter(processing, "rightRatio", to_string(coeff_de_bord_droit).c_str());
     add_parameter(processing, "measureTime", "30");
     add_parameter(processing, "method", "Multipoints");
     add_parameter(processing, "moduleName", "DEPJAU");
@@ -150,8 +151,11 @@ void mesure::from_xml(const std::string& filename) {
 
         if (name == "bottomRatio") {
             this->coeff_de_fond = value;
-        } else if (name == "leftRatio" || name == "rightRatio") {
-            this->coeff_de_bord = value;
+        } if (name == "leftRatio") {
+            this->coeff_de_bord_gauche = value;
+        }
+        if (name == "rightRatio") {
+            this->coeff_de_bord_droit = value;
         }
     }
 
