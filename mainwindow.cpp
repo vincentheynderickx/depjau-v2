@@ -14,72 +14,7 @@
 #include <stdio.h>
 #include <string>
 
-// Classe de la fenêtre de configuration de l'hélice
-class HelixEquation : public QWidget {
-public:
-    Debitmetre* helice;
-    HelixEquation(Debitmetre* helice, QWidget *parent = nullptr) : QWidget(parent) {
-        this->helice = helice;
-        QGridLayout *layout = new QGridLayout(this);
 
-        QLabel *equationLabels[3];
-        for (int i = 0; i < 3; ++i) {
-            equationLabels[i] = new QLabel("V =", this);
-        }
-
-        QDoubleSpinBox *aSpinBoxes[3];
-        QDoubleSpinBox *bSpinBoxes[3];
-
-        for (int i = 0; i < 3; ++i) {
-            aSpinBoxes[i] = new QDoubleSpinBox(this);
-            bSpinBoxes[i] = new QDoubleSpinBox(this);
-
-            aSpinBoxes[i]->setRange(-1000000, 1000000);
-            aSpinBoxes[i]->setDecimals(4);
-            aSpinBoxes[i]->setValue(this->helice->pentes[i]);
-
-            bSpinBoxes[i]->setRange(-1000000, 1000000);
-            bSpinBoxes[i]->setDecimals(4);
-            bSpinBoxes[i]->setValue(this->helice->ordonnees[i]);
-        }
-
-        QDoubleSpinBox *nSpinBoxes[2];
-
-        for (int i = 0; i < 2; ++i) {
-            nSpinBoxes[i] = new QDoubleSpinBox(this);
-            nSpinBoxes[i]->setRange(-1000000, 1000000);
-            nSpinBoxes[i]->setDecimals(4);
-            nSpinBoxes[i]->setValue(this->helice->intervalles[i]);
-        }
-
-        layout->addWidget(equationLabels[0], 0, 0);
-        layout->addWidget(aSpinBoxes[0], 0, 1);
-        layout->addWidget(new QLabel("x N +", this), 0, 2);
-        layout->addWidget(bSpinBoxes[0], 0, 3);
-
-        for (int i = 1; i < 3; ++i) {
-            layout->addWidget(equationLabels[i], i, 0);
-            layout->addWidget(aSpinBoxes[i], i, 1);
-            layout->addWidget(new QLabel("x N +", this), i, 2);
-            layout->addWidget(bSpinBoxes[i], i, 3);
-            layout->addWidget(new QLabel("pour N >", this), i, 4);
-            layout->addWidget(nSpinBoxes[i - 1], i, 5);
-        }
-
-        /*
-        QLabel *durationLabel = new QLabel("Durée d'acquisition (s)", this);
-        QDoubleSpinBox *durationInput = new QDoubleSpinBox(this);
-        durationInput->setRange(0, 1000000);
-        durationInput->setDecimals(4);
-        durationInput->setValue(0);
-
-        layout->addWidget(durationLabel, 3, 0, 1, 2);
-        layout->addWidget(durationInput, 3, 2, 1, 3);
-        */
-
-        setLayout(layout);
-    }
-};
 
 
 
@@ -99,29 +34,12 @@ MainWindow::~MainWindow() {
     delete ui; // Libération de l'interface utilisateur
 }
 
-void MainWindow::on_ouvrirButton_clicked() {
-    QString filename = QFileDialog::getOpenFileName(this, "Open XML File", "", "XML Files (*.xml)");
-    if (!filename.isEmpty()) {
-        current_mesure.from_xml(filename.toStdString());
-        update_display();
-        QMessageBox::information(this, "Success", "XML file loaded successfully.");
-    }
-}
-
-void MainWindow::on_enregistrerButton_clicked() {
-    QString filename = QFileDialog::getSaveFileName(this, "Save XML File", "", "XML Files (*.xml)");
-    if (!filename.isEmpty()) {
-        current_mesure.to_xml(this->current_mesure.debitmetre, filename.toStdString());
-        QMessageBox::information(this, "Success", "XML file saved successfully.");
-    }
-}
-
+// Slot pour le bouton "Ajouter verticale"
 void MainWindow::on_add_vert_clicked() {
-  vertical verticale_vide = vertical();
-  this->current_mesure.ajout_mesure(verticale_vide);
-  this->current_vertical =
-  this->current_mesure.ensemble_des_mesures_des_verticales.size() - 1;
-  this->update_display();
+    vertical verticale_vide = vertical(); // Création d'une verticale vide
+    this->current_mesure.ajout_mesure(verticale_vide); // Ajout de la verticale vide à la mesure courante
+    this->current_vertical = this->current_mesure.ensemble_des_mesures_des_verticales.size() - 1; // Mise à jour de la verticale courante
+    this->update_display(); // Mise à jour de l'affichage
 }
 
 // Slot pour le bouton "Verticale précédente"
@@ -425,17 +343,5 @@ void MainWindow::on_input_temps_acq_editingFinished()
         ui->input_temps_acq->setText("ERR");
     }
     this->update_display(); // Mise à jour de l'affichage
-}
-
-
-void MainWindow::on_supp_vert_clicked()
-{
-
-}
-
-
-void MainWindow::on_supp_mes_clicked()
-{
-
 }
 
