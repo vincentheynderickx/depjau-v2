@@ -58,6 +58,10 @@ private slots:
 
     void on_input_temps_acq_editingFinished();
 
+    void on_supp_vert_clicked();
+
+    void on_supp_mes_clicked();
+
 private:
     Ui::MainWindow *ui;
     mesure current_mesure;

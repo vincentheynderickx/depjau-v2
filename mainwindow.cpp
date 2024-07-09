@@ -427,3 +427,15 @@ void MainWindow::on_input_temps_acq_editingFinished()
     this->update_display(); // Mise à jour de l'affichage
 }
 
+
+void MainWindow::on_supp_vert_clicked()
+{
+
+}
+
+
+void MainWindow::on_supp_mes_clicked()
+{
+
+}
+
