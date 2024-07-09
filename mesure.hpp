@@ -60,7 +60,7 @@ public:
 
     double temps_acquisition;
 
-    mesure(double temp_eau, double temp_air, double conductivite_mesure, double temp_conductivite, double coeff_de_bord, double coeff_de_fond) : temperature_eau(temp_eau), temperature_air(temp_air),
+    mesure(double temp_eau, double temp_air, double conductivite_mesure, double temp_conductivite, double coeff_de_bord_doit, double coeff_de_bord_gauche, double coeff_de_fond) : temperature_eau(temp_eau), temperature_air(temp_air),
                                                                                                                                 conductivite(conductivite_mesure), temp_mesure_conductivite(temp_conductivite), coeff_de_bord(coeff_de_bord), coeff_de_fond(coeff_de_fond) {}
     std::vector<vertical> ensemble_des_mesures_des_verticales;
     void ajout_mesure(vertical la_vertical) { ensemble_des_mesures_des_verticales.push_back(la_vertical); };
