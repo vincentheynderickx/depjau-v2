@@ -1,0 +1,239 @@
+<study type="NOINPUT">
+  <processings>
+    <processing>
+      <parameter value="0.8" name="bottomRatio"/>
+      <parameter value="true" name="bottomZero"/>
+      <parameter value="Micromoulinet" name="hardwareType"/>
+      <parameter value="0.6" name="lastVerticalDistance"/>
+      <parameter value="9" name="lastVerticalIndex"/>
+      <parameter value="0.8" name="leftRatio"/>
+      <parameter value="30" name="measureTime"/>
+      <parameter value="Multipoints" name="method"/>
+      <parameter value="DEPJAU" name="moduleName"/>
+      <object name="propellerEquations">
+        <parameter value="0.0633" name="a1"/>
+        <parameter value="0.0561" name="a2"/>
+        <parameter value="0.0535" name="a3"/>
+        <parameter value="1.94" name="ak1"/>
+        <parameter value="8.08" name="ak2"/>
+        <parameter value="0.0013" name="b1"/>
+        <parameter value="0.027" name="b2"/>
+        <parameter value="0.048" name="b3"/>
+      </object>
+      <parameter value="0.8" name="rightRatio"/>
+      <parameter value="1.00" name="version"/>
+      <liste name="verticals">
+        <object name="verticals">
+          <parameter value="0.29" name="distance"/>
+          <liste name="points">
+            <object name="points">
+              <parameter value="0.035" name="height"/>
+              <parameter value="0.1579" name="speed"/>
+              <parameter value="70" name="topsNb"/>
+            </object>
+          </liste>
+          <parameter value="1" name="reducedPointsNb"/>
+          <parameter value="0.097" name="totalDepth"/>
+        </object>
+        <object name="verticals">
+          <parameter value="0.9" name="distance"/>
+          <liste name="points">
+            <object name="points">
+              <parameter value="0.038" name="height"/>
+              <parameter value="0.12157" name="speed"/>
+              <parameter value="57" name="topsNb"/>
+            </object>
+            <object name="points">
+              <parameter value="0.1" name="height"/>
+              <parameter value="0.15977" name="speed"/>
+              <parameter value="71" name="topsNb"/>
+            </object>
+            <object name="points">
+              <parameter value="0.18" name="height"/>
+              <parameter value="0.18408" name="speed"/>
+              <parameter value="84" name="topsNb"/>
+            </object>
+          </liste>
+          <parameter value="1" name="reducedPointsNb"/>
+          <parameter value="0.212" name="totalDepth"/>
+        </object>
+        <object name="verticals">
+          <parameter value="2" name="distance"/>
+          <liste name="points">
+            <object name="points">
+              <parameter value="0.042" name="height"/>
+              <parameter value="0.15042" name="speed"/>
+              <parameter value="66" name="topsNb"/>
+            </object>
+            <object name="points">
+              <parameter value="0.11" name="height"/>
+              <parameter value="0.18034" name="speed"/>
+              <parameter value="82" name="topsNb"/>
+            </object>
+            <object name="points">
+              <parameter value="0.18" name="height"/>
+              <parameter value="0.1953" name="speed"/>
+              <parameter value="90" name="topsNb"/>
+            </object>
+          </liste>
+          <parameter value="1" name="reducedPointsNb"/>
+          <parameter value="0.22" name="totalDepth"/>
+        </object>
+        <object name="verticals">
+          <parameter value="3" name="distance"/>
+          <liste name="points">
+            <object name="points">
+              <parameter value="0.04" name="height"/>
+              <parameter value="0.15042" name="speed"/>
+              <parameter value="66" name="topsNb"/>
+            </object>
+            <object name="points">
+              <parameter value="0.11" name="height"/>
+              <parameter value="0.22335" name="speed"/>
+              <parameter value="105" name="topsNb"/>
+            </object>
+            <object name="points">
+              <parameter value="0.19" name="height"/>
+              <parameter value="0.24579" name="speed"/>
+              <parameter value="117" name="topsNb"/>
+            </object>
+          </liste>
+          <parameter value="1" name="reducedPointsNb"/>
+          <parameter value="0.232" name="totalDepth"/>
+        </object>
+        <object name="verticals">
+          <parameter value="4" name="distance"/>
+          <liste name="points">
+            <object name="points">
+              <parameter value="0.045" name="height"/>
+              <parameter value="0.15042" name="speed"/>
+              <parameter value="66" name="topsNb"/>
+            </object>
+            <object name="points">
+              <parameter value="0.12" name="height"/>
+              <parameter value="0.23644" name="speed"/>
+              <parameter value="112" name="topsNb"/>
+            </object>
+            <object name="points">
+              <parameter value="0.22" name="height"/>
+              <parameter value="0.26636" name="speed"/>
+              <parameter value="128" name="topsNb"/>
+            </object>
+          </liste>
+          <parameter value="1" name="reducedPointsNb"/>
+          <parameter value="0.257" name="totalDepth"/>
+        </object>
+        <object name="verticals">
+          <parameter value="5" name="distance"/>
+          <liste name="points">
+            <object name="points">
+              <parameter value="0.042" name="height"/>
+              <parameter value="0.16725" name="speed"/>
+              <parameter value="75" name="topsNb"/>
+            </object>
+            <object name="points">
+              <parameter value="0.12" name="height"/>
+              <parameter value="0.22709" name="speed"/>
+              <parameter value="107" name="topsNb"/>
+            </object>
+            <object name="points">
+              <parameter value="0.21" name="height"/>
+              <parameter value="0.28319" name="speed"/>
+              <parameter value="137" name="topsNb"/>
+            </object>
+          </liste>
+          <parameter value="1" name="reducedPointsNb"/>
+          <parameter value="0.245" name="totalDepth"/>
+        </object>
+        <object name="verticals">
+          <parameter value="6" name="distance"/>
+          <liste name="points">
+            <object name="points">
+              <parameter value="0.045" name="height"/>
+              <parameter value="0.16725" name="speed"/>
+              <parameter value="75" name="topsNb"/>
+            </object>
+            <object name="points">
+              <parameter value="0.11" name="height"/>
+              <parameter value="0.23831" name="speed"/>
+              <parameter value="113" name="topsNb"/>
+            </object>
+            <object name="points">
+              <parameter value="0.19" name="height"/>
+              <parameter value="0.27758" name="speed"/>
+              <parameter value="134" name="topsNb"/>
+            </object>
+          </liste>
+          <parameter value="1" name="reducedPointsNb"/>
+          <parameter value="0.225" name="totalDepth"/>
+        </object>
+        <object name="verticals">
+          <parameter value="7" name="distance"/>
+          <liste name="points">
+            <object name="points">
+              <parameter value="0.04" name="height"/>
+              <parameter value="0.15229" name="speed"/>
+              <parameter value="67" name="topsNb"/>
+            </object>
+            <object name="points">
+              <parameter value="0.1" name="height"/>
+              <parameter value="0.21213" name="speed"/>
+              <parameter value="99" name="topsNb"/>
+            </object>
+            <object name="points">
+              <parameter value="0.165" name="height"/>
+              <parameter value="0.23644" name="speed"/>
+              <parameter value="112" name="topsNb"/>
+            </object>
+          </liste>
+          <parameter value="1" name="reducedPointsNb"/>
+          <parameter value="0.2" name="totalDepth"/>
+        </object>
+        <object name="verticals">
+          <parameter value="8" name="distance"/>
+          <liste name="points">
+            <object name="points">
+              <parameter value="0.045" name="height"/>
+              <parameter value="0.14855" name="speed"/>
+              <parameter value="65" name="topsNb"/>
+            </object>
+            <object name="points">
+              <parameter value="0.09" name="height"/>
+              <parameter value="0.19343" name="speed"/>
+              <parameter value="89" name="topsNb"/>
+            </object>
+            <object name="points">
+              <parameter value="0.155" name="height"/>
+              <parameter value="0.2327" name="speed"/>
+              <parameter value="110" name="topsNb"/>
+            </object>
+          </liste>
+          <parameter value="1" name="reducedPointsNb"/>
+          <parameter value="0.19" name="totalDepth"/>
+        </object>
+        <object name="verticals">
+          <parameter value="9" name="distance"/>
+          <liste name="points">
+            <object name="points">
+              <parameter value="0.045" name="height"/>
+              <parameter value="0.13733" name="speed"/>
+              <parameter value="59" name="topsNb"/>
+            </object>
+            <object name="points">
+              <parameter value="0.09" name="height"/>
+              <parameter value="0.14481" name="speed"/>
+              <parameter value="63" name="topsNb"/>
+            </object>
+            <object name="points">
+              <parameter value="0.15" name="height"/>
+              <parameter value="0.11735" name="speed"/>
+              <parameter value="55" name="topsNb"/>
+            </object>
+          </liste>
+          <parameter value="1" name="reducedPointsNb"/>
+          <parameter value="0.182" name="totalDepth"/>
+        </object>
+      </liste>
+    </processing>
+  </processings>
+</study>
