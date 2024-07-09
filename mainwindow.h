@@ -60,6 +60,11 @@ private slots:
 
     void on_input_coef_bg_editingFinished();
 
+    void on_ouvrirButton_clicked();
+
+    void on_enregistrerButton_clicked();
+
+
 private:
     Ui::MainWindow *ui;
     mesure current_mesure;

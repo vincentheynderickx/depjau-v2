@@ -371,3 +371,21 @@ void MainWindow::on_input_coef_bg_editingFinished()
     this->update_display(); // Mise à jour de l'affichage
 }
 
+
+void MainWindow::on_ouvrirButton_clicked() {
+    QString filename = QFileDialog::getOpenFileName(this, "Open XML File", "", "XML Files (*.xml)");
+    if (!filename.isEmpty()) {
+        current_mesure.from_xml(filename.toStdString());
+        update_display();
+        QMessageBox::information(this, "Success", "XML file loaded successfully.");
+    }
+}
+
+void MainWindow::on_enregistrerButton_clicked() {
+    QString filename = QFileDialog::getSaveFileName(this, "Save XML File", "", "XML Files (*.xml)");
+    if (!filename.isEmpty()) {
+        current_mesure.to_xml(this->current_mesure.debitmetre, filename.toStdString());
+        QMessageBox::information(this, "Success", "XML file saved successfully.");
+    }
+}
+
