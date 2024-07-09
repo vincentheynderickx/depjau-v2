@@ -27,9 +27,9 @@ double mesure::debit() {
         debits_lin.push_back(debit_lineique(vitesses, hauteurs, vert.profondeur, coeff_de_fond));
 
         if (i == 0) {
-            debits_ss.push_back(debit_sous_section_bord(debits_lin[i], vert.distance, distance_bord_gauche, hauteur_bord_gauche, vert.profondeur, coeff_de_bord));
+            debits_ss.push_back(debit_sous_section_bord(debits_lin[i], vert.distance, distance_bord_gauche, hauteur_bord_gauche, vert.profondeur, coeff_de_bord_gauche));
         } else if (i == ensemble_des_mesures_des_verticales.size() - 1) {
-            debits_ss.push_back(debit_sous_section_bord(debits_lin[i], vert.distance, distance_bord_droit, hauteur_bord_droit, vert.profondeur, coeff_de_bord));
+            debits_ss.push_back(debit_sous_section_bord(debits_lin[i], vert.distance, distance_bord_droit, hauteur_bord_droit, vert.profondeur, coeff_de_bord_droit));
         } else {
             debits_ss.push_back(debit_sous_section_general(debits_lin[i - 1], debits_lin[i], vert.distance, ensemble_des_mesures_des_verticales[i - 1].distance));
         }
