@@ -89,6 +89,12 @@
              </item>
              <item>
               <widget class="QLineEdit" name="input_dbgauche">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="text">
                 <string>0</string>
                </property>
@@ -115,6 +121,12 @@
              </item>
              <item>
               <widget class="QLineEdit" name="input_dbdroit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="text">
                 <string>0</string>
                </property>
@@ -141,6 +153,12 @@
              </item>
              <item>
               <widget class="QLineEdit" name="input_pbgauche">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="text">
                 <string>0</string>
                </property>
@@ -167,6 +185,12 @@
              </item>
              <item>
               <widget class="QLineEdit" name="input_pbdroit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="text">
                 <string>0</string>
                </property>
@@ -193,6 +217,12 @@
              </item>
              <item>
               <widget class="QLineEdit" name="input_coeff_bord">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="text">
                 <string>0</string>
                </property>
@@ -219,6 +249,12 @@
              </item>
              <item>
               <widget class="QLineEdit" name="input_coeff_fond">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="text">
                 <string>0</string>
                </property>
@@ -246,6 +282,12 @@
              </item>
              <item>
               <widget class="QLineEdit" name="input_temps_acq">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="text">
                 <string>30</string>
                </property>
@@ -329,7 +371,14 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="input_dist"/>
+           <widget class="QLineEdit" name="input_dist">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QLabel" name="label_prof">
@@ -339,7 +388,14 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="input_prof"/>
+           <widget class="QLineEdit" name="input_prof">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
