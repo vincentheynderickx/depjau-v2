@@ -8,6 +8,7 @@
 #include "materiel.hpp"
 
 
+
 class une_mesure
 {
 public:
@@ -15,10 +16,16 @@ public:
     double cote;
     double profondeur_mesure;
     int nombre_tops;
+    double temps;
 
     une_mesure(){this->profondeur_mesure = 0;
-        this->nombre_tops = 0;};
+        this->nombre_tops = 0;
+        this->temps = 30;};
 
+    une_mesure(double heure_en_minute, double cote_en_cm,
+               double profondeur_mesure_en_cm , int nombre_de_tops, double temps_dizieme_de_secondes) :   heure(heure_en_minute), cote(cote_en_cm),
+        profondeur_mesure(profondeur_mesure_en_cm),
+        nombre_tops(nombre_de_tops), temps(temps_dizieme_de_secondes) {}
 };
 
 class vertical
