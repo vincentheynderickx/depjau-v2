@@ -113,6 +113,9 @@ void mesure::to_xml(const Debitmetre& debi, const std::string& filename) const {
 }
 
 void mesure::from_xml(const std::string& filename) {
+
+    this->ensemble_des_mesures_des_verticales.clear();
+
     pugi::xml_document doc;
     if (!doc.load_file(filename.c_str())) {
         cerr << "Erreur de chargement du fichier XML" << endl;
@@ -146,9 +149,9 @@ void mesure::from_xml(const std::string& filename) {
         double value = param.attribute("value").as_double();
 
         if (name == "bottomRatio") {
-            coeff_de_fond = value;
+            this->coeff_de_fond = value;
         } else if (name == "leftRatio" || name == "rightRatio") {
-            coeff_de_bord = value;
+            this->coeff_de_bord = value;
         }
     }
 
