@@ -19,7 +19,7 @@ class Debitmetre{
         Debitmetre(string nom_fichier);
         Debitmetre(string nom, int n_intervalles, vector<double> intervalles, vector<double> pentes, vector<double> ordonnees);
         Debitmetre(std::string& name);
-        double calcul_vitesse(double n);
+        double calcul_vitesse(double n) const ;
         void enregistrer_xml(string nom_fichier);
 };
 

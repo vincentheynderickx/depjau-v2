@@ -28,6 +28,10 @@ private slots:
 
     void on_add_mes_clicked();
 
+    void on_ouvrirButton_clicked();
+
+    void on_enregistrerButton_clicked();
+
     void on_tableau_mesures_cellChanged(int row, int column);
 
     void on_input_dist_editingFinished();

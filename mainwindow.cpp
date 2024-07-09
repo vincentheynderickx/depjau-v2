@@ -17,11 +17,28 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow() { delete ui; }
 
+void MainWindow::on_ouvrirButton_clicked() {
+    QString filename = QFileDialog::getOpenFileName(this, "Open XML File", "", "XML Files (*.xml)");
+    if (!filename.isEmpty()) {
+        current_mesure.from_xml(filename.toStdString());
+        update_display();
+        QMessageBox::information(this, "Success", "XML file loaded successfully.");
+    }
+}
+
+void MainWindow::on_enregistrerButton_clicked() {
+    QString filename = QFileDialog::getSaveFileName(this, "Save XML File", "", "XML Files (*.xml)");
+    if (!filename.isEmpty()) {
+        current_mesure.to_xml(this->current_mesure.debitmetre, filename.toStdString());
+        QMessageBox::information(this, "Success", "XML file saved successfully.");
+    }
+}
+
 void MainWindow::on_add_vert_clicked() {
   vertical verticale_vide = vertical();
   this->current_mesure.ajout_mesure(verticale_vide);
   this->current_vertical =
-      this->current_mesure.ensemble_des_mesures_des_verticales.size() - 1;
+  this->current_mesure.ensemble_des_mesures_des_verticales.size() - 1;
   this->update_display();
 }
 
