@@ -1,4 +1,6 @@
 QT       += core gui
+QMAKE_CFLAGS += -Wa,-mbig-obj
+QMAKE_CXXFLAGS += -Wa,-mbig-obj
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 

@@ -26,7 +26,7 @@ Debitmetre::Debitmetre(string nom, int n_intervalles, vector<double> intervalles
 }
 
 
-double Debitmetre::calcul_vitesse(double n){
+double Debitmetre::calcul_vitesse(double n) const {
     int i = 0;
     while (i < this->n_intervalles - 1 && n > this->intervalles[i]){
         i++;
