@@ -58,7 +58,6 @@ void mesure::to_xml(const Debitmetre& debi, const std::string& filename) const {
     add_parameter(processing, "lastVerticalDistance", "0.6");
     add_parameter(processing, "lastVerticalIndex", "9");
     add_parameter(processing, "leftRatio", to_string(coeff_de_bord_gauche).c_str());
-    add_parameter(processing, "rightRatio", to_string(coeff_de_bord_droit).c_str());
     add_parameter(processing, "measureTime", "30");
     add_parameter(processing, "method", "Multipoints");
     add_parameter(processing, "moduleName", "DEPJAU");
@@ -81,7 +80,7 @@ void mesure::to_xml(const Debitmetre& debi, const std::string& filename) const {
     add_propeller_parameter("b2", to_string(debi.ordonnees[1]).c_str());
     add_propeller_parameter("b3", to_string(debi.ordonnees[2]).c_str());
 
-    add_parameter(processing, "rightRatio", to_string(coeff_de_bord).c_str());
+    add_parameter(processing, "rightRatio", to_string(coeff_de_bord_droit).c_str());
     add_parameter(processing, "version", "1.00");
 
     pugi::xml_node verticals = processing.append_child("liste");
