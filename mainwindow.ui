@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1068</width>
-    <height>739</height>
+    <width>890</width>
+    <height>766</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -301,6 +301,13 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QPushButton" name="supp_vert">
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
@@ -338,10 +345,23 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="add_mes">
-         <property name="text">
-          <string>+</string>
-         </property>
+        <widget class="QWidget" name="widget_2" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_11">
+          <item>
+           <widget class="QPushButton" name="add_mes">
+            <property name="text">
+             <string>+</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="supp_mes">
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>
