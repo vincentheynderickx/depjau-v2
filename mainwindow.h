@@ -62,6 +62,8 @@ private slots:
 
     void on_supp_mes_clicked();
 
+    void on_input_coef_bg_editingFinished();
+
 private:
     Ui::MainWindow *ui;
     mesure current_mesure;

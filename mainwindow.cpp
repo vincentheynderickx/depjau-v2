@@ -247,7 +247,7 @@ void MainWindow::on_input_coeff_bord_editingFinished() {
     QByteArray ba = inpt.toLocal8Bit();
     const char *c_str = ba.data();
     try {
-        this->current_mesure.coeff_de_bord = stod(c_str);
+        this->current_mesure.coeff_de_bord_droit = stod(c_str);
     } catch (...) {
         ui->input_coeff_fond->setText("ERR");
     }
@@ -437,5 +437,19 @@ void MainWindow::on_supp_vert_clicked()
 void MainWindow::on_supp_mes_clicked()
 {
 
+}
+
+
+void MainWindow::on_input_coef_bg_editingFinished()
+{
+    QString inpt = ui->input_coef_bg->text();
+    QByteArray ba = inpt.toLocal8Bit();
+    const char *c_str = ba.data();
+    try {
+        this->current_mesure.coeff_de_bord_gauche = stod(c_str);
+    } catch (...) {
+        ui->input_coef_bg->setText("ERR");
+    }
+    this->update_display(); // Mise à jour de l'affichage
 }
 
