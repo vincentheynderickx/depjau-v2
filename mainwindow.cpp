@@ -127,7 +127,7 @@ void MainWindow::on_input_dist_editingFinished() {
     QByteArray ba = inpt.toLocal8Bit();
     const char *c_str = ba.data();
     try {
-        this->current_mesure.ensemble_des_mesures_des_verticales[this->current_vertical].distance = stol(c_str);
+        this->current_mesure.ensemble_des_mesures_des_verticales[this->current_vertical].distance = stod(c_str);
     } catch (...) {
         ui->input_dist->setText("ERR");
     }
@@ -251,6 +251,9 @@ void MainWindow::makePlot(QCustomPlot *customPlot) {
     x_fond.append(this->current_mesure.distance_bord_gauche);
     y_fond.append(0);
 
+    x_fond.append(this->current_mesure.distance_bord_gauche);
+    y_fond.append(-this->current_mesure.hauteur_bord_gauche);
+
 
     // Indice de la verticale sélectionnée
     int selected_vertical_index = this->current_vertical;  // Assurez-vous que cet attribut est défini dans votre classe
@@ -277,6 +280,9 @@ void MainWindow::makePlot(QCustomPlot *customPlot) {
     }
 
     // Ajout du dernier point de fond qui correspond au bord droit
+    x_fond.append(this->current_mesure.distance_bord_droit);
+    y_fond.append(-this->current_mesure.hauteur_bord_droit);
+
     x_fond.append(this->current_mesure.distance_bord_droit);
     y_fond.append(0);
 
