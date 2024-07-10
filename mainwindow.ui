@@ -83,7 +83,7 @@
              <item>
               <widget class="QLabel" name="label">
                <property name="text">
-                <string>Distance bord gauche</string>
+                <string>Mesure bord gauche depuis origine</string>
                </property>
               </widget>
              </item>
@@ -115,7 +115,7 @@
              <item>
               <widget class="QLabel" name="label_2">
                <property name="text">
-                <string>Distance bord droit</string>
+                <string>Mesure bord droit depuis origine</string>
                </property>
               </widget>
              </item>

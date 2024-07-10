@@ -172,7 +172,7 @@ void MainWindow::on_input_coeff_bord_editingFinished() {
     this->update_display(); // Mise à jour de l'affichage
 }
 
-// Slot appelé lorsque l'édition du champ de distance du bord gauche est terminée
+// Slot appelé lorsque l'édition du champ de mesure du bord gauche est terminée
 void MainWindow::on_input_dbgauche_editingFinished() {
     QString inpt = ui->input_dbgauche->text();
     QByteArray ba = inpt.toLocal8Bit();
@@ -245,6 +245,11 @@ void MainWindow::makePlot(QCustomPlot *customPlot) {
     QVector<double> x_selected_mesures;
     QVector<double> y_selected_mesures;
 
+    // Ajout du premier point de fond qui correspond au bord gauche
+    x_fond.append(this->current_mesure.distance_bord_gauche);
+    y_fond.append(0);
+
+
     // Indice de la verticale sélectionnée
     int selected_vertical_index = this->current_vertical;  // Assurez-vous que cet attribut est défini dans votre classe
 
@@ -268,6 +273,10 @@ void MainWindow::makePlot(QCustomPlot *customPlot) {
             }
         }
     }
+
+    // Ajout du dernier point de fond qui correspond au bord droit
+    x_fond.append(this->current_mesure.distance_bord_droit);
+    y_fond.append(0);
 
     // Ajout d'un graphique pour les points de fond
     customPlot->addGraph();
