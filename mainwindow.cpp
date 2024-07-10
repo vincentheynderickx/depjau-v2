@@ -118,7 +118,7 @@ void MainWindow::on_tableau_mesures_cellChanged(int row, int column) {
     } catch (...) {
         ui->tableau_mesures->item(row, column)->setText("ERR");
     }
-    this->makePlot(ui->customPlot); // Configuration du fond du graphique
+    this->makePlot(ui->customPlot);
 }
 
 // Slot appelé lorsque l'édition du champ de distance est terminée
@@ -131,7 +131,7 @@ void MainWindow::on_input_dist_editingFinished() {
     } catch (...) {
         ui->input_dist->setText("ERR");
     }
-    this->update_display(); // Mise à jour de l'affichage
+    this->update_display();
 }
 
 // Slot appelé lorsque l'édition du champ de profondeur est terminée
@@ -144,7 +144,7 @@ void MainWindow::on_input_prof_editingFinished() {
     } catch (...) {
         ui->input_prof->setText("ERR");
     }
-    this->update_display(); // Mise à jour de l'affichage
+    this->update_display();
 }
 
 // Slot appelé lorsque l'édition du champ de coefficient de fond est terminée
@@ -157,6 +157,7 @@ void MainWindow::on_input_coeff_fond_editingFinished() {
     } catch (...) {
         ui->input_coeff_fond->setText("ERR");
     }
+    this->update_display();
 }
 
 // Slot appelé lorsque l'édition du champ de coefficient de bord est terminée
@@ -169,7 +170,7 @@ void MainWindow::on_input_coeff_bord_editingFinished() {
     } catch (...) {
         ui->input_coeff_fond->setText("ERR");
     }
-    this->update_display(); // Mise à jour de l'affichage
+    this->update_display();
 }
 
 // Slot appelé lorsque l'édition du champ de mesure du bord gauche est terminée
@@ -182,7 +183,7 @@ void MainWindow::on_input_dbgauche_editingFinished() {
     } catch (...) {
         ui->input_dbgauche->setText("ERR");
     }
-    this->update_display(); // Mise à jour de l'affichage
+    this->update_display();
 }
 
 // Slot appelé lorsque l'édition du champ de distance du bord droit est terminée
@@ -195,6 +196,7 @@ void MainWindow::on_input_dbdroit_editingFinished() {
     } catch (...) {
         // En cas d'erreur, aucune action spécifique n'est prise ici
     }
+    this->update_display();
 }
 
 // Slot appelé lorsque l'édition du champ de hauteur du bord gauche est terminée
@@ -207,7 +209,7 @@ void MainWindow::on_input_pbgauche_editingFinished() {
     } catch (...) {
         ui->input_pbgauche->setText("ERR");
     }
-    this->update_display(); // Mise à jour de l'affichage
+    this->update_display();
 }
 
 // Slot appelé lorsque l'édition du champ de hauteur du bord droit est terminée
@@ -220,7 +222,7 @@ void MainWindow::on_input_pbdroit_editingFinished() {
     } catch (...) {
         ui->input_pbdroit->setText("ERR");
     }
-    this->update_display(); // Mise à jour de l'affichage
+    this->update_display();
 }
 
 // Fonction de configuration du fond du graphique
@@ -396,5 +398,23 @@ void MainWindow::on_enregistrerButton_clicked() {
         current_mesure.to_xml(this->current_mesure.debitmetre, filename.toStdString());
         QMessageBox::information(this, "Success", "XML file saved successfully.");
     }
+}
+
+
+void MainWindow::on_input_dbgauche_textChanged(const QString &arg1)
+{
+
+}
+
+
+void MainWindow::on_tableau_mesures_itemChanged(QTableWidgetItem *item)
+{
+    std::cout << "test" << std::endl;
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    this->update_display(); // Mise à jour de l'affichage
 }
 

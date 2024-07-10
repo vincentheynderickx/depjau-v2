@@ -65,6 +65,12 @@ private slots:
     void on_enregistrerButton_clicked();
 
 
+    void on_input_dbgauche_textChanged(const QString &arg1);
+
+    void on_tableau_mesures_itemChanged(QTableWidgetItem *item);
+
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     mesure current_mesure;
